@@ -5,14 +5,43 @@ const messageContainer = document.querySelector('.message-container')
 const message = document.getElementById('message')
 
 let isValid = false
+let passwordsMatch = false
 
 function validateForm() {
     // Using Constrait API
     isValid = form.checkValidity()
     // Style main message for error
-    message.textContent = 'Please fill out all fields'
-    message.style.color = 'red'
-    messageContainer.style.borderColer = 'red'
+    if(!isValid) {
+        message.textContent = 'Please fill out all fields'
+        message.style.color = 'red'
+        messageContainer.style.borderColer = 'red'
+        return
+    }
+
+    // Check to see if passwords match
+    if (password1El.value === password2El.value) {
+    // If they match, set value to true and borders to green
+    passwordsMatch = true;
+    password1El.style.borderColor = 'green';
+    password2El.style.borderColor = 'green';
+  } else {
+    // If they don't match, border color of input to red, change message
+    passwordsMatch = false;
+    message.textContent = 'Make sure passwords match.';
+    message.style.color = 'red';
+    messageContainer.style.borderColor = 'red';
+    password1El.style.borderColor = 'red';
+    password2El.style.borderColor = 'red';
+    return;
+  }
+
+  // If form is valid
+  if(isValid && passwordsMatch) {
+    message.textContent = 'Successfully Registered!'
+    message.style.color = 'green'
+    messageContainer.style.borderColer = 'green'
+  }
+    
 }
 
 function processFormData(e) {
